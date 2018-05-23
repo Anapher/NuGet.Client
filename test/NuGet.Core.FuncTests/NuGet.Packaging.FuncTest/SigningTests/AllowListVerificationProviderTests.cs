@@ -5,7 +5,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
@@ -1131,7 +1130,9 @@ namespace NuGet.Packaging.FuncTest
                 allowUnknownRevocation: true,
                 allowNoClientCertificateList: allowNoClientCertificateList,
                 allowNoRepositoryCertificateList: allowNoRepositoryCertificateList,
-                alwaysVerifyCountersignature: true,
+                verificationTarget: VerificationTarget.All,
+                signaturePlacement: SignaturePlacement.Any,
+                repositoryCountersignatureVerificationBehavior: SignatureVerificationBehavior.IfExistsAndIsNecessary,
                 repoAllowListEntries: repoAllowList,
                 clientAllowListEntries: clientAllowList);
         }

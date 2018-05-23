@@ -41,11 +41,6 @@ namespace NuGet.Packaging.Signing
         public bool AllowNoTimestamp { get; }
 
         /// <summary>
-        /// Always verify the countersignature if present
-        /// </summary>
-        public bool AlwaysVerifyCountersignature { get; }
-
-        /// <summary>
         /// Treat unknown revocation status as a warning instead of an error during verification.
         /// </summary>
         public bool AllowUnknownRevocation { get; }
@@ -59,6 +54,21 @@ namespace NuGet.Packaging.Signing
         /// Allow an empty or null ClientCertificateList.
         /// </summary>
         public bool AllowNoClientCertificateList { get; }
+
+        /// <summary>
+        /// Gets the verification target(s).
+        /// </summary>
+        public VerificationTarget VerificationTarget { get; }
+
+        /// <summary>
+        /// Gets the placement of verification target(s).
+        /// </summary>
+        public SignaturePlacement SignaturePlacement { get; }
+
+        /// <summary>
+        /// Gets the repository countersignature verification behavior.
+        /// </summary>
+        public SignatureVerificationBehavior RepositoryCountersignatureVerificationBehavior { get; }
 
         /// <summary>
         /// Allowlist of repository certificates hashes.
@@ -80,8 +90,10 @@ namespace NuGet.Packaging.Signing
             bool allowUnknownRevocation,
             bool allowNoRepositoryCertificateList,
             bool allowNoClientCertificateList,
-            bool alwaysVerifyCountersignature)
-            : this (
+            VerificationTarget verificationTarget,
+            SignaturePlacement signaturePlacement,
+            SignatureVerificationBehavior repositoryCountersignatureVerificationBehavior)
+            : this(
                   allowUnsigned,
                   allowIllegal,
                   allowUntrusted,
@@ -91,7 +103,9 @@ namespace NuGet.Packaging.Signing
                   allowUnknownRevocation,
                   allowNoRepositoryCertificateList,
                   allowNoClientCertificateList,
-                  alwaysVerifyCountersignature,
+                  verificationTarget,
+                  signaturePlacement,
+                  repositoryCountersignatureVerificationBehavior,
                   repoAllowListEntries: null,
                   clientAllowListEntries: null)
         {
@@ -107,7 +121,9 @@ namespace NuGet.Packaging.Signing
             bool allowUnknownRevocation,
             bool allowNoRepositoryCertificateList,
             bool allowNoClientCertificateList,
-            bool alwaysVerifyCountersignature,
+            VerificationTarget verificationTarget,
+            SignaturePlacement signaturePlacement,
+            SignatureVerificationBehavior repositoryCountersignatureVerificationBehavior,
             IReadOnlyList<VerificationAllowListEntry> repoAllowListEntries,
             IReadOnlyList<VerificationAllowListEntry> clientAllowListEntries)
         {
@@ -120,7 +136,9 @@ namespace NuGet.Packaging.Signing
             AllowUnknownRevocation = allowUnknownRevocation;
             AllowNoRepositoryCertificateList = allowNoRepositoryCertificateList;
             AllowNoClientCertificateList = allowNoClientCertificateList;
-            AlwaysVerifyCountersignature = alwaysVerifyCountersignature;
+            VerificationTarget = verificationTarget;
+            SignaturePlacement = signaturePlacement;
+            RepositoryCountersignatureVerificationBehavior = repositoryCountersignatureVerificationBehavior;
             RepositoryCertificateList = repoAllowListEntries;
             ClientCertificateList = clientAllowListEntries;
         }
@@ -142,7 +160,9 @@ namespace NuGet.Packaging.Signing
                 allowUnknownRevocation: true,
                 allowNoRepositoryCertificateList: true,
                 allowNoClientCertificateList: true,
-                alwaysVerifyCountersignature: true,
+                verificationTarget: VerificationTarget.All,
+                signaturePlacement: SignaturePlacement.Any,
+                repositoryCountersignatureVerificationBehavior: SignatureVerificationBehavior.IfExistsAndIsNecessary,
                 repoAllowListEntries: repoAllowListEntries,
                 clientAllowListEntries: clientAllowListEntries);
         }
@@ -164,7 +184,9 @@ namespace NuGet.Packaging.Signing
                 allowUnknownRevocation: true,
                 allowNoRepositoryCertificateList: true,
                 allowNoClientCertificateList: true,
-                alwaysVerifyCountersignature: false,
+                verificationTarget: VerificationTarget.All,
+                signaturePlacement: SignaturePlacement.Any,
+                repositoryCountersignatureVerificationBehavior: SignatureVerificationBehavior.IfExistsAndIsNecessary,
                 repoAllowListEntries: repoAllowListEntries,
                 clientAllowListEntries: clientAllowListEntries);
         }
@@ -186,7 +208,9 @@ namespace NuGet.Packaging.Signing
                 allowUnknownRevocation: true,
                 allowNoRepositoryCertificateList: false,
                 allowNoClientCertificateList: false,
-                alwaysVerifyCountersignature: false,
+                verificationTarget: VerificationTarget.All,
+                signaturePlacement: SignaturePlacement.Any,
+                repositoryCountersignatureVerificationBehavior: SignatureVerificationBehavior.IfExistsAndIsNecessary,
                 repoAllowListEntries: repoAllowListEntries,
                 clientAllowListEntries: clientAllowListEntries);
         }
@@ -208,7 +232,9 @@ namespace NuGet.Packaging.Signing
                 allowUnknownRevocation: true,
                 allowNoRepositoryCertificateList: true,
                 allowNoClientCertificateList: true,
-                alwaysVerifyCountersignature: true,
+                verificationTarget: VerificationTarget.All,
+                signaturePlacement: SignaturePlacement.Any,
+                repositoryCountersignatureVerificationBehavior: SignatureVerificationBehavior.IfExists,
                 repoAllowListEntries: repoAllowListEntries,
                 clientAllowListEntries: clientAllowListEntries);
         }

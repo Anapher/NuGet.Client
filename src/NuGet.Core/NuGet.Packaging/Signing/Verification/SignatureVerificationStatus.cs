@@ -29,13 +29,18 @@ namespace NuGet.Packaging.Signing
         Illegal = 2,
 
         /// <summary>
+        /// The signature is disallowed based on verification settings.
+        /// </summary>
+        Disallowed = 3,
+
+        /// <summary>
         /// Signature certificate does not match known allowlists.
         /// </summary>
-        Untrusted = 3,
+        Untrusted = 4,
 
         /// <summary>
         /// Signature is valid for the verification step.
         /// </summary>
-        Valid = 4
+        Valid = 5
     }
 }

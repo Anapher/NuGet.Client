@@ -11,40 +11,50 @@ namespace NuGet.Packaging.Test
     public class SignedPackageVerifierSettingsTests
     {
         [Theory]
-        [InlineData(true)]
-        [InlineData(false)]
-        public void ConstructorWithoutLists_InitializesProperties(bool initialValue)
+        [InlineData(true, VerificationTarget.Author, SignaturePlacement.PrimarySignature, SignatureVerificationBehavior.IfExists)]
+        [InlineData(false, VerificationTarget.All, SignaturePlacement.Any, SignatureVerificationBehavior.IfExistsAndIsNecessary)]
+        public void ConstructorWithoutLists_InitializesProperties(
+            bool boolValue,
+            VerificationTarget verificationTarget,
+            SignaturePlacement signaturePlacement,
+            SignatureVerificationBehavior signatureVerificationBehavior)
         {
             // Arrange & Act
             var settings = new SignedPackageVerifierSettings(
-                allowUnsigned: initialValue,
-                allowIllegal: initialValue,
-                allowUntrusted: initialValue,
-                allowIgnoreTimestamp: initialValue,
-                allowMultipleTimestamps: initialValue,
-                allowNoTimestamp: initialValue,
-                allowUnknownRevocation: initialValue,
-                allowNoRepositoryCertificateList: initialValue,
-                allowNoClientCertificateList: initialValue,
-                alwaysVerifyCountersignature: initialValue);
+                allowUnsigned: boolValue,
+                allowIllegal: boolValue,
+                allowUntrusted: boolValue,
+                allowIgnoreTimestamp: boolValue,
+                allowMultipleTimestamps: boolValue,
+                allowNoTimestamp: boolValue,
+                allowUnknownRevocation: boolValue,
+                verificationTarget: verificationTarget,
+                signaturePlacement: signaturePlacement,
+                repositoryCountersignatureVerificationBehavior: signatureVerificationBehavior,
+                allowNoRepositoryCertificateList: boolValue,
+                allowNoClientCertificateList: boolValue);
 
             // Assert
-            settings.AllowUnsigned.Should().Be(initialValue);
-            settings.AllowIllegal.Should().Be(initialValue);
-            settings.AllowUntrusted.Should().Be(initialValue);
-            settings.AllowIgnoreTimestamp.Should().Be(initialValue);
-            settings.AllowMultipleTimestamps.Should().Be(initialValue);
-            settings.AllowNoTimestamp.Should().Be(initialValue);
-            settings.AllowUnknownRevocation.Should().Be(initialValue);
-            settings.AllowNoRepositoryCertificateList.Should().Be(initialValue);
-            settings.AllowNoClientCertificateList.Should().Be(initialValue);
-            settings.AlwaysVerifyCountersignature.Should().Be(initialValue);
+            settings.AllowUnsigned.Should().Be(boolValue);
+            settings.AllowIllegal.Should().Be(boolValue);
+            settings.AllowUntrusted.Should().Be(boolValue);
+            settings.AllowIgnoreTimestamp.Should().Be(boolValue);
+            settings.AllowMultipleTimestamps.Should().Be(boolValue);
+            settings.AllowNoTimestamp.Should().Be(boolValue);
+            settings.AllowUnknownRevocation.Should().Be(boolValue);
+            settings.AllowNoRepositoryCertificateList.Should().Be(boolValue);
+            settings.AllowNoClientCertificateList.Should().Be(boolValue);
+            settings.RepositoryCountersignatureVerificationBehavior.Should().Be(signatureVerificationBehavior);
         }
 
         [Theory]
-        [InlineData(true)]
-        [InlineData(false)]
-        public void ConstructorWithLists_InitializesProperties(bool initialValue)
+        [InlineData(true, VerificationTarget.Author, SignaturePlacement.PrimarySignature, SignatureVerificationBehavior.IfExists)]
+        [InlineData(false, VerificationTarget.All, SignaturePlacement.Any, SignatureVerificationBehavior.IfExistsAndIsNecessary)]
+        public void ConstructorWithLists_InitializesProperties(
+            bool boolValue,
+            VerificationTarget verificationTarget,
+            SignaturePlacement signaturePlacement,
+            SignatureVerificationBehavior signatureVerificationBehavior)
         {
             // Arrange
             var repoList = new List<CertificateHashAllowListEntry>();
@@ -52,30 +62,32 @@ namespace NuGet.Packaging.Test
 
             // Act
             var settings = new SignedPackageVerifierSettings(
-                allowUnsigned: initialValue,
-                allowIllegal: initialValue,
-                allowUntrusted: initialValue,
-                allowIgnoreTimestamp: initialValue,
-                allowMultipleTimestamps: initialValue,
-                allowNoTimestamp: initialValue,
-                allowUnknownRevocation: initialValue,
-                allowNoRepositoryCertificateList: initialValue,
-                allowNoClientCertificateList: initialValue,
-                alwaysVerifyCountersignature: initialValue,
+                allowUnsigned: boolValue,
+                allowIllegal: boolValue,
+                allowUntrusted: boolValue,
+                allowIgnoreTimestamp: boolValue,
+                allowMultipleTimestamps: boolValue,
+                allowNoTimestamp: boolValue,
+                allowUnknownRevocation: boolValue,
+                allowNoRepositoryCertificateList: boolValue,
+                allowNoClientCertificateList: boolValue,
+                verificationTarget: verificationTarget,
+                signaturePlacement: signaturePlacement,
+                repositoryCountersignatureVerificationBehavior: signatureVerificationBehavior,
                 repoAllowListEntries: repoList,
                 clientAllowListEntries: clientList);
 
             // Assert
-            settings.AllowUnsigned.Should().Be(initialValue);
-            settings.AllowIllegal.Should().Be(initialValue);
-            settings.AllowUntrusted.Should().Be(initialValue);
-            settings.AllowIgnoreTimestamp.Should().Be(initialValue);
-            settings.AllowMultipleTimestamps.Should().Be(initialValue);
-            settings.AllowNoTimestamp.Should().Be(initialValue);
-            settings.AllowUnknownRevocation.Should().Be(initialValue);
-            settings.AllowNoRepositoryCertificateList.Should().Be(initialValue);
-            settings.AllowNoClientCertificateList.Should().Be(initialValue);
-            settings.AlwaysVerifyCountersignature.Should().Be(initialValue);
+            settings.AllowUnsigned.Should().Be(boolValue);
+            settings.AllowIllegal.Should().Be(boolValue);
+            settings.AllowUntrusted.Should().Be(boolValue);
+            settings.AllowIgnoreTimestamp.Should().Be(boolValue);
+            settings.AllowMultipleTimestamps.Should().Be(boolValue);
+            settings.AllowNoTimestamp.Should().Be(boolValue);
+            settings.AllowUnknownRevocation.Should().Be(boolValue);
+            settings.AllowNoRepositoryCertificateList.Should().Be(boolValue);
+            settings.AllowNoClientCertificateList.Should().Be(boolValue);
+            settings.RepositoryCountersignatureVerificationBehavior.Should().Be(signatureVerificationBehavior);
             settings.RepositoryCertificateList.Should().BeSameAs(repoList);
             settings.ClientCertificateList.Should().BeSameAs(clientList);
         }
@@ -101,7 +113,7 @@ namespace NuGet.Packaging.Test
             settings.AllowUnknownRevocation.Should().Be(defaultValue);
             settings.AllowNoRepositoryCertificateList.Should().Be(defaultValue);
             settings.AllowNoClientCertificateList.Should().Be(defaultValue);
-            settings.AlwaysVerifyCountersignature.Should().Be(defaultValue);
+            settings.RepositoryCountersignatureVerificationBehavior.Should().Be(SignatureVerificationBehavior.IfExistsAndIsNecessary);
             settings.RepositoryCertificateList.Should().BeSameAs(repoList);
             settings.ClientCertificateList.Should().BeSameAs(clientList);
         }
@@ -127,11 +139,10 @@ namespace NuGet.Packaging.Test
             settings.AllowUnknownRevocation.Should().Be(defaultValue);
             settings.AllowNoRepositoryCertificateList.Should().Be(defaultValue);
             settings.AllowNoClientCertificateList.Should().Be(defaultValue);
-            settings.AlwaysVerifyCountersignature.Should().Be(false);
+            settings.RepositoryCountersignatureVerificationBehavior.Should().Be(SignatureVerificationBehavior.IfExistsAndIsNecessary);
             settings.RepositoryCertificateList.Should().BeSameAs(repoList);
             settings.ClientCertificateList.Should().BeSameAs(clientList);
         }
-
 
         [Fact]
         public void GetRequireModeDefaultPolicy_InitializesProperties()
@@ -153,7 +164,7 @@ namespace NuGet.Packaging.Test
             settings.AllowUnknownRevocation.Should().Be(true);
             settings.AllowNoRepositoryCertificateList.Should().Be(false);
             settings.AllowNoClientCertificateList.Should().Be(false);
-            settings.AlwaysVerifyCountersignature.Should().Be(false);
+            settings.RepositoryCountersignatureVerificationBehavior.Should().Be(SignatureVerificationBehavior.IfExistsAndIsNecessary);
             settings.RepositoryCertificateList.Should().BeSameAs(repoList);
             settings.ClientCertificateList.Should().BeSameAs(clientList);
         }
@@ -178,7 +189,7 @@ namespace NuGet.Packaging.Test
             settings.AllowUnknownRevocation.Should().Be(true);
             settings.AllowNoRepositoryCertificateList.Should().Be(true);
             settings.AllowNoClientCertificateList.Should().Be(true);
-            settings.AlwaysVerifyCountersignature.Should().Be(true);
+            settings.RepositoryCountersignatureVerificationBehavior.Should().Be(SignatureVerificationBehavior.IfExists);
             settings.RepositoryCertificateList.Should().BeSameAs(repoList);
             settings.ClientCertificateList.Should().BeSameAs(clientList);
         }

@@ -31,7 +31,9 @@ namespace NuGet.Packaging.Signing
                 allowUnknownRevocation: true,
                 allowNoRepositoryCertificateList: true,
                 allowNoClientCertificateList: true,
-                alwaysVerifyCountersignature: false,
+                verificationTarget: VerificationTarget.Repository,
+                signaturePlacement: SignaturePlacement.Any,
+                repositoryCountersignatureVerificationBehavior: SignatureVerificationBehavior.IfExistsAndIsNecessary,
                 repoAllowListEntries: null,
                 clientAllowListEntries: null);
         }

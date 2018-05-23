@@ -96,7 +96,7 @@ namespace NuGet.Packaging.Signing
             if (timestamps.Count > 1 && !settings.AllowMultipleTimestamps)
             {
                 issues.Add(SignatureLog.Error(NuGetLogCode.NU3000, Strings.ErrorMultipleTimestamps));
-                verificationFlags |= SignatureVerificationStatusFlags.MultipleSignatures;
+                verificationFlags |= SignatureVerificationStatusFlags.MultipleTimestamps;
                 return false;
             }
 

@@ -52,7 +52,9 @@ namespace NuGet.Packaging.Signing
                     fallbackSettings.AllowUnknownRevocation,
                     allowNoRepositoryCertificateList,
                     fallbackSettings.AllowNoClientCertificateList,
-                    fallbackSettings.AlwaysVerifyCountersignature,
+                    fallbackSettings.VerificationTarget,
+                    fallbackSettings.SignaturePlacement,
+                    fallbackSettings.RepositoryCountersignatureVerificationBehavior,
                     repositoryAllowList?.AsReadOnly(),
                     fallbackSettings.ClientCertificateList);
             }

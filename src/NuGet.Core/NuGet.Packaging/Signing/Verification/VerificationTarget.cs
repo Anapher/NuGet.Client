@@ -14,14 +14,18 @@ namespace NuGet.Packaging.Signing
     [Flags]
     public enum VerificationTarget
     {
+        Unknown     = 1 << 1,
+
         /// <summary>
         /// Target Author signatures
         /// </summary>
-        Author      = 0x01,
+        Author      = 1 << 2,
 
         /// <summary>
         /// Target Repository signatures
         /// </summary>
-        Repository  = 0x10
+        Repository  = 1 << 3,
+
+        All         = Unknown | Author | Repository
     }
 }

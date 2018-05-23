@@ -2695,7 +2695,9 @@ namespace NuGet.Packaging.Test
                     allowUnknownRevocation: signedPackageVerifierSettings.AllowUnknownRevocation,
                     allowNoClientCertificateList: signedPackageVerifierSettings.AllowNoClientCertificateList,
                     allowNoRepositoryCertificateList: false,
-                    alwaysVerifyCountersignature: signedPackageVerifierSettings.AlwaysVerifyCountersignature,
+                    verificationTarget: signedPackageVerifierSettings.VerificationTarget,
+                    signaturePlacement: signedPackageVerifierSettings.SignaturePlacement,
+                    repositoryCountersignatureVerificationBehavior: signedPackageVerifierSettings.RepositoryCountersignatureVerificationBehavior,
                     repoAllowListEntries: expectedAllowList,
                     clientAllowListEntries: signedPackageVerifierSettings.ClientCertificateList);
 
@@ -2765,7 +2767,9 @@ namespace NuGet.Packaging.Test
                     allowUnknownRevocation: signedPackageVerifierSettings.AllowUnknownRevocation,
                     allowNoClientCertificateList: signedPackageVerifierSettings.AllowNoClientCertificateList,
                     allowNoRepositoryCertificateList: false,
-                    alwaysVerifyCountersignature: signedPackageVerifierSettings.AlwaysVerifyCountersignature,
+                    verificationTarget: signedPackageVerifierSettings.VerificationTarget,
+                    signaturePlacement: signedPackageVerifierSettings.SignaturePlacement,
+                    repositoryCountersignatureVerificationBehavior: signedPackageVerifierSettings.RepositoryCountersignatureVerificationBehavior,
                     repoAllowListEntries: expectedAllowList,
                     clientAllowListEntries: signedPackageVerifierSettings.ClientCertificateList);
 

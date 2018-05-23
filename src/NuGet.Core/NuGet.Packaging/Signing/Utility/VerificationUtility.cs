@@ -37,6 +37,24 @@ namespace NuGet.Packaging.Signing
             return SignatureVerificationStatus.Unknown;
         }
 
+        public static bool IsMatch(SignatureType signatureType, VerificationTarget target)
+        {
+            switch (signatureType)
+            {
+                case SignatureType.Unknown:
+                    return target.HasFlag(VerificationTarget.Unknown);
+
+                case SignatureType.Author:
+                    return target.HasFlag(VerificationTarget.Author);
+
+                case SignatureType.Repository:
+                    return target.HasFlag(VerificationTarget.Repository);
+
+                default:
+                    throw new ArgumentException();
+            }
+        }
+
         internal static SignatureVerificationStatusFlags ValidateSigningCertificate(X509Certificate2 certificate, bool treatIssuesAsErrors, string signatureFriendlyName, List<SignatureLog> issues)
         {
             if (certificate == null)
