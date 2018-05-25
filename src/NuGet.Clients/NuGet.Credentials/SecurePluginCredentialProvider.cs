@@ -50,7 +50,7 @@ namespace NuGet.Credentials
             {
                 throw new ArgumentNullException(nameof(pluginDiscoveryResult));
             }
-            if (pluginDiscoveryResult.PluginFile.State != PluginFileState.Valid)
+            if (pluginDiscoveryResult.PluginFile.State.Value != PluginFileState.Valid) // TODO NK - I don't think this should be done here....rather at get async
             {
                 throw new ArgumentException(string.Format(Resources.SecureCredentialProvider_InvalidPluginFile, pluginDiscoveryResult.PluginFile.State, pluginDiscoveryResult.Message), nameof(pluginDiscoveryResult));
             }

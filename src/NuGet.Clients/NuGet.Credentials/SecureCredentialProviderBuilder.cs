@@ -42,7 +42,7 @@ namespace NuGet.Credentials
             var plugins = new List<ICredentialProvider>();
             foreach (var pluginDiscoveryResult in availablePlugins)
             {
-                if (pluginDiscoveryResult.PluginFile.State == PluginFileState.Valid)
+                if (pluginDiscoveryResult.PluginFile.State.Value == PluginFileState.Valid) // TODO NK - eliminate this, Just create them all. 
                 {
                     _logger.LogDebug($"Will attempt to use {pluginDiscoveryResult.PluginFile.Path} as a credential provider");
                     plugins.Add(new SecurePluginCredentialProvider(_pluginManager, pluginDiscoveryResult, _logger));
