@@ -66,7 +66,7 @@ namespace NuGet.Protocol.Plugins
         /// Instantiates a new <see cref="PluginDiscoveryResult" /> class.
         /// </summary>
         /// <param name="pluginFile">A plugin file.</param>
-        /// <see cref="PluginFileState.Valid" />; otherwise, <c>null</c>.</param>
+        /// <see cref="PluginFileState.Valid" />; otherwise, <c>null</c>
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="pluginFile" />
         /// is <c>null</c>.</exception>
         public PluginDiscoveryResult(PluginFile pluginFile)
