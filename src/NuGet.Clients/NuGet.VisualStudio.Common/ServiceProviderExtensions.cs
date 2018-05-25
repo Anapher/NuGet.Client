@@ -60,7 +60,7 @@ namespace NuGet.VisualStudio
             this Microsoft.VisualStudio.Shell.IAsyncServiceProvider site)
             where TInterface : class
         {
-            var service = site.GetServiceAsync(typeof(TService));
+            var service = await site.GetServiceAsync(typeof(TService)).ConfigureAwait(false);
 
             if (service != null)
             {
